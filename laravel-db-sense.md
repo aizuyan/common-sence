@@ -49,3 +49,14 @@ result=$($MYSQL -e "desc ${D}.${T}")
 echo -e "$result" | awk 'BEGIN{ret="protected $table = [";}{ret=ret"'\''"$1"'\'',"}END{len=length(ret) - 1;ret=substr(ret, 0, len)"];";print ret;}'
 ```
 * blade引擎中使用`{{}}`包含php内容，而且都会被转移，如果不想被转义，这里使用`{!!}`，显示花括号用`@{{}}`
+
+## laravel中的集中关联关系
+* 一对一关系`hasOne`
+	tablePrimary->hasOne(table(主表关联的表), table_id(要关联的表中的id,forgin_key), id(主表中的id,local_key));
+* 一对一关系`belongsTo`
+	tablePrimary->belongsTo(table(主表所属的表),table_id(主表中的id,local_key), id(主表所属表的id,forigin_key));
+* 一对多关系`hasMany`
+	hasMany('Articles'(用户所拥有的文章), 'user_id'(forgin_key), 'id'(local_key));
+* 多对多关系`belongsToMany`
+	belongsToMany('Article', 'Article_Tag', 'tag_id', 'article_id');
+	这里的第三个参数是本类中的id，第四个参数是第一个参数所指向类中的id(不是article_id,是id)
