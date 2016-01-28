@@ -131,3 +131,46 @@ $instances = $this->getDependencies(
 array_pop($this->buildStack);
 return $reflector->newInstanceArgs($instances);
 ```
+
+
+## laravel container中的share
+`Illuminate\Routing\RoutingServiceProvider`中的38~40行，这就也绑定了router当容器中，看看这个怎么实现的
+
+在Container中有offsetSet这个函数，这个方法来自`ArrayAccess`这个接口，这个可以让使用者像数组一样访问对象中特定的内容，会触发`offsetSet`这个函数。
+
+`offsetSet`函数这个函数会判断要设置的值是否是闭包，不是的话，包装为闭包，然后绑定到容器中，单是绑定的时候没有设置`shared=true`，为什么还叫`share`?
+
+看看share这个方法，里面设置了个静态变量，当`make`的时候都会执行注册的对应的闭包函数，如果静态变量`$object`已经设置过了的话，就直接返回，和singleton方式的效果一样。
+
+`make`的时候会传入两个参数，这里不会有影响，因为我发现php传入参数可以比定义参数个数多，但不能少。
+```php
+$this->app['router'] = $this->app->share(function ($app) {
+    return new Router($app['events'], $app);
+});
+
+
+public function offsetSet($key, $value)
+{
+    if (! $value instanceof Closure) {
+        $value = function () use ($value) {
+            return $value;
+        };
+    }
+    $this->bind($key, $value);
+}
+
+public function share(Closure $closure)
+{
+	return function ($container) use ($closure) {
+		static $object;
+		if (is_null($object)) {
+			$object = $closure($container);
+		}
+		return $object;
+	};
+}
+```
+也就是说，laravel容器中的共享对象有两种定义方式：
+
+1. $app->singleton(...);
+2. $app['test'] = $app->share(...);
