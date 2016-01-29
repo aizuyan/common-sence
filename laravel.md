@@ -74,7 +74,9 @@ $abstract = $this->getAlias($abstract);
 ```
 比如说之前给`app`注册了3个别名[Illuminate\Foundation\Application, Illuminate\Contracts\Container\Container, Illuminate\Contracts\Foundation\Application]，但我们获取3个中任意一个的别名的时候都会返回`app`。
 
-下面是一段延时加载的内容，这个先不管，框架走到这里还没有延时加载的相关信息配置。
+下面是一段延时加载的内容，我们在`Illuminate\Foundation\Bootstrap\RegisterProviders::bootstrap()`方法里面将部分需要延时加载的类放在了`$app->deferredServices`数组中，map形式，键是抽象名称，值是具体的类名。
+
+如果要实例化的抽象内容名称在延时加载列表里面，这个时候加载注册这个类，并将其从延时加载注册列表中删除，这样如果就可以获取到延时加载注册的服务了。
 ```php
 if (isset($this->deferredServices[$abstract])) {
 	$this->loadDeferredProvider($abstract);
