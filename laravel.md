@@ -174,3 +174,11 @@ public function share(Closure $closure)
 
 1. $app->singleton(...);
 2. $app['test'] = $app->share(...);
+
+## bind
+这里说下`bind`这个函数，bind只是将一个抽象的类和具体类的实现方法和关联起来，并不会去实例化他，当然如果这个类之前已经实例化了（单例模式或者普通模式），这里也要进行实例化操作。
+
+## 框架何时解析配置文件、注册异常。。。。。。的
+创一个kernel之后，调用了kernel的`handle()`方法，这里会去执行数组`$bootstrappers`中每个类的`bootstrap()`方法，这里面就包括了对`.env配置文件`的处理，对普通配置文件的处理，对日志配置的处理，对异常的处理，注册门面注释的配置内容，对服务的注册，处理服务。
+
+在`Illuminate\Foundation\Bootstrap\RegisterProviders::bootstrap()`中有执行了一个重要的方法`$app::registerConfiguredProviders()`，这个方法最后做了这么一个事情，将配置文件`configure('app.providers')`数组中的服务提供类解析了一遍，只注册必须要加载的类到应用中(`protected $defer = false;`)，并且生成`bootstrap\cache\services.json`文件，再次请求的时候就不用再次解析了，当然当配置文件中的`providers`变化时，会更新`bootstrap\cache\services.json`缓存文件。
