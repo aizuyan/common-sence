@@ -47,3 +47,22 @@ AC_MSG_NOTICE([checking if stack overflow is detectable])
 #AC_MSG_ERROR (error-description, [exit-status])
 AC_MSG_ERROR([php-config not found])
 ```
+## ifelse
+格式：`ifelse(string1, string2, equal, not-equal)`
+如果string1和string2相等执行equal，否则执行not-equal。
+
+
+## AC_DEFUN
+定义一个autoconf宏，格式`AC_DEFUN(name, [body])`
+```autoconf
+dnl php编译的时候添加构建目录的函数PHP_ADD_BUILD_DIR
+AC_DEFUN([PHP_ADD_BUILD_DIR],[
+  ifelse($2,,[
+    BUILD_DIR="$BUILD_DIR $1"
+  ], [
+    $php_shtool mkdir -p $1
+  ])
+])
+dnl 定义一个autoconf宏`PHP_ADD_BUILD_DIR`，宏可以带参数，第一个传进去为`$1`，第二个为`$2`，以此类推。
+```
+
