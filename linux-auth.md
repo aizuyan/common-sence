@@ -79,9 +79,17 @@ s socket文件
 c 字符设备文件
 b 块设备文件
 
+## sticky-bit
+对一个文件设置了sticky-bit之后，尽管其他用户有写权限， 也必须由属主执行删除、移动等操作。
+
+对一个目录设置了sticky-bit之后，存放在该目录的文件仅准许其属主执行删除、 移动等操作
+
 ## SUID和SGID
-SUID和SGID是在执行程序时候起作用
-SUID优先级比SGID高
+SUID和SGID是在执行程序时候起作用。
+
+SUID优先级比SGID高。
+
+SUID设置文件，SGID设置目录。
 
 Linux中会给每个用户生成4个id：uid、gid、euid、egid，内核主要根据euid、egid来确定进程对资源的访问权限，一个进程如果没有SUID或SGID位，则
 euid=uid，egid=gid，分别是当前用户的uid和gid
