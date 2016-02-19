@@ -6,4 +6,4 @@
 * 从当前分支新建一个分支，并切换到新建的分支=>`git checkout -b fixed-bug-234`
 * 删除本地分支 => `git branch -d fixed-bug-234`
 * 删除远程分支fixed-bug-234 => `git push origin :fixed-bug-234`
-
+* 删除文件同步，`git rm` + `git commit -m '删除'`或者`rm ` + `git commit -am '删除'`
