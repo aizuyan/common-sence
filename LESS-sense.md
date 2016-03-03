@@ -188,5 +188,22 @@ mixin还可以对参数个数进行匹配，有点像其他语言中的重载：
 }
 ```
 
+##### 命名空间
+less中也有命名空间
+```less
+#bundle {
+  .button () {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    &:hover { background-color: white }
+  }
+}
+
+#header a {
+  color: orange;
+  #bundle > .button;
+}
+```
 
 > 2016年3月3日17:45:19
