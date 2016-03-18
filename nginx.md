@@ -109,6 +109,24 @@ Example:
 * ~或~*
 * (None)    pattern匹配URI的头部(找到最佳)
 
+## upstream
+```nginx
+upstream server_tips_all{
+    server 192.168.0.1:9000 wight=3 max_fails=20 fail_timeout=20s;  //权重为3，失败20次之后，摘掉该机器，20秒之后再次尝试
+
+    keepalive 16;       //这里指的是每个worker连接后端的最大长连接数
+}
+```
+使用的时候很简单：`proxy_pass http://server_tips_all`。
+
+## nginx 常用常识
+```nginx
+set $var "hello World";
+set $var1 what;
+```
+
+
+
 ## 参考文献
 [Nginx的Location指令配置](http://blog.chinaunix.net/uid-20788470-id-3080834.html)
 
