@@ -11,6 +11,7 @@ dnl 执行configure脚本的术后输出错误消息"configure: error: `message`
 ```
 
 下面是configure中的代码，和执行时候的显示内容：
+
 ![AC_MSG相关宏的代码](https://github.com/aizuyan/images/blob/master/common-sence/sh.png)
 
 ![AC_MSG相关宏的执行结果](https://github.com/aizuyan/images/blob/master/common-sence/shret.png)
