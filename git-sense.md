@@ -7,4 +7,4 @@
 * 删除本地分支 => `git branch -d fixed-bug-234`
 * 删除远程分支fixed-bug-234 => `git push origin :fixed-bug-234`
 * 删除文件同步，`git rm` + `git commit -m '删除'`或者`rm ` + `git commit -am '删除'`
-* 重置上一次add、commit => `git reset HEAD^` 或者 `git reset --mixed HEAD^`，`--mixed`是默认参数
+* 回退到某个版本，保留源码，回退index、commit信息 => `git reset HEAD^` 或者 `git reset --mixed HEAD^`，`--mixed`是默认参数
