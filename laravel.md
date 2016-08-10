@@ -205,7 +205,7 @@ public function share(Closure $closure)
 `build`方法就是用来实例化一个对象的
 - 构造类的反射`ReflectionClass`
 - 将要构造的类放入构建堆栈`buildStack`中，后面的`Contextual`解析上下文关系的啥时候会用到
-- 解析依赖参数，`type-hint`注入每个构造函数的参数
+- 解析依赖参数，`type-hint`注入每个构造函数的参数，解析参数的时候会用到上线文关系
 - 返回实例化之后的对象（这里不会进行任何单例模式的判断，每次都会实例化）
 
 ##### `make`方法
