@@ -184,3 +184,35 @@ public function share(Closure $closure)
 创一个kernel之后，调用了kernel的`handle()`方法，这里会去执行数组`$bootstrappers`中每个类的`bootstrap()`方法，这里面就包括了对`.env配置文件`的处理，对普通配置文件的处理，对日志配置的处理，对异常的处理，注册门面注释的配置内容，对服务的注册，处理服务。
 
 在`Illuminate\Foundation\Bootstrap\RegisterProviders::bootstrap()`中有执行了一个重要的方法`$app::registerConfiguredProviders()`，这个方法最后做了这么一个事情，将配置文件`configure('app.providers')`数组中的服务提供类解析了一遍，只注册必须要加载的类到应用中(`protected $defer = false;`)，并且生成`bootstrap\cache\services.json`文件，再次请求的时候就不用再次解析了，当然当配置文件中的`providers`变化时，会更新`bootstrap\cache\services.json`缓存文件。
+
+
+
+#### laravel中的container
+`laravel`中的Container作为容器起到了很重要的作用，`Application`就继承自他，我们来看看它里面都有什么。
+```php
+	class Container implements ArrayAccess, ContainerContract
+	{
+```
+可以看到他实现了`ArrayAccess`和`ContainerContract`两个接口，前者让使用者可以像访问数组一样访问对象。后者更像一个契约，规定了容器必须实现的方法。
+
+##### bind方法
+`bind`方法可以将一个类绑定到容器中，注册的时候，如果要注册的真正内容不是一个`Closure`的时候这里生成一个闭包函数，执行的时候会返回想要注册对象的实例
+- 绑定时，如果之前使用了这个名字，会将之前用这个名字实例化过得单例模式和别名全部删除。
+- 生成闭包函数的时候会根据参数生成不同的`build`或者`make`.
+
+
+##### `build`方法
+`build`方法就是用来实例化一个对象的
+- 构造类的反射`ReflectionClass`
+- 将要构造的类放入构建堆栈`buildStack`中，后面的`Contextual`解析上下文关系的啥时候会用到
+- 解析依赖参数，`type-hint`注入每个构造函数的参数
+- 返回实例化之后的对象（这里不会进行任何单例模式的判断，每次都会实例化）
+
+##### `make`方法
+`make`方法，这里会进行上下文关系的管理，单例模式的管理、共享对象的管理
+- 如果要找的是一个单例模式的类，直接返回。
+- 获取要实例化的真正类，可能是一个又上下文关系的类(`when()->needs()->give()`)，可能是一个字符串，可能是一个之前绑定好的类。
+- 调用`build`返回实例。
+- 调用`getExtenders`对生成的实例进行处理。
+- 调用`fireResolvingCallbacks`对实例进行回调。
+
