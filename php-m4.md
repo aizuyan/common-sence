@@ -58,3 +58,11 @@ dnl 第一个参数是扩展的名称，第二个参数当我们运行./configur
 ifelse(string1, string2, equal, not-equal)
 dnl 如果string1和string2想等执行equal的内容，否则执行not-equal的内容
 ```
+
+```m4
+AC_CACHE_VAL (cache-id, commands-to-set-it)
+确认由cache-id指定的检查的结果是可用的。如果检查的结果在读入的缓存文件中，并且configure 没有用`--quiet'或者`--silent'调用，就打印一条消息以说明该结果已经被缓存了；否则，就运行 shell命令commands-to-set-it。这些命令不应具有副作用，但设置变量cache-id除外。它们尤其不应该调用 AC_DEFINE；紧随与对AC_CACHE_VAL的调用之后的代码应该根据缓存的值调用AC_DEFINE 作这件事。此外，它们不应该打印任何消息，比如说使用AC_MSG_CHECKING；应该在调用AC_CACHE_VAL 之前打印，以便不论测试的结果是从缓存中检索而得到的，还是通过运行shell命令而确定的，都会打印消息。如果是运行 shell命令以确定值，该值将在configure创建它的输出文件之前被储存到缓存文件中。
+
+AC_CACHE_CHECK (message, cache-id, commands)
+这是一个更详尽地处理了打印消息的AC_CACHE_VAL版本。本宏为这些宏的最常见的应用提供了便捷的缩写。 它为message调用AC_MSG_CHECKING，而后以cache-id和commands为参数 调用AC_CACHE_VAL，最后以cache-id为参数调用AC_MSG_RESULT。
+```
