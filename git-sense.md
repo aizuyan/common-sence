@@ -18,6 +18,6 @@
 #### 同步其他分支的文件到当前分支
 像将其他分支的文件同步到当前分支，可以使用页面的命令，参考[https://stackoverflow.com/questions/3334475/git-how-to-update-checkout-a-single-file-from-remote-origin-master](https://stackoverflow.com/questions/3334475/git-how-to-update-checkout-a-single-file-from-remote-origin-master)
 
-`git checkout origin/which-branch -- /path/to/file`
+`git checkout origin/which-branch -- path/to/file`
 
 其中的双下划线`--`表示后面的内容是一个文件，而不是一个目录
