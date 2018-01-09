@@ -15,6 +15,9 @@
 * `git diff --staged`,`git diff --cached`是暂存区和提交版本(HEAD)的比较
 * `git diff HEAD`是工作区和提交版本的比较
 
+#### git revert
+* `git revert HEAD`，重新建立一个提交，内容是取消上一次提交
+
 #### 同步其他分支的文件到当前分支
 像将其他分支的文件同步到当前分支，可以使用页面的命令，参考[https://stackoverflow.com/questions/3334475/git-how-to-update-checkout-a-single-file-from-remote-origin-master](https://stackoverflow.com/questions/3334475/git-how-to-update-checkout-a-single-file-from-remote-origin-master)
 
