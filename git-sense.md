@@ -14,6 +14,7 @@
 * `git diff`是工作区和暂存区的比较
 * `git diff --staged`,`git diff --cached`是暂存区和提交版本(HEAD)的比较
 * `git diff HEAD`是工作区和提交版本的比较
+* `git diff HEAD^^ --stat`查看变动的文件列表
 
 #### git revert
 * `git revert HEAD`，重新建立一个提交，内容是取消上一次提交
