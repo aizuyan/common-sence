@@ -19,6 +19,10 @@
 #### git revert
 * `git revert HEAD`，重新建立一个提交，内容是取消上一次提交
 
+#### git rm
+* `git rm /path/to/file --cahed`，从版本库中删除一个文件，本地并不删除
+* `git rm -r /path/to/dir/ --cached`，从版本库中删除一个文件夹，本地不删除
+
 #### 同步其他分支的文件到当前分支
 像将其他分支的文件同步到当前分支，可以使用页面的命令，参考[https://stackoverflow.com/questions/3334475/git-how-to-update-checkout-a-single-file-from-remote-origin-master](https://stackoverflow.com/questions/3334475/git-how-to-update-checkout-a-single-file-from-remote-origin-master)
 
