@@ -29,3 +29,25 @@
 `git checkout origin/which-branch -- path/to/file`
 
 其中的双下划线`--`表示后面的内容是一个文件，而不是一个目录
+
+#### 合并多次提交为一个
+`git rebase -i master[|commitId]`，参数`-i`意思是启动交互式模式，你可以干预整个`rebase`过程
+
+例如，当前`git log --pretty=oneline`，结果如下所示
+```
+00a7aafe0062adb852392895b936cfe6099f5992 (HEAD -> master) t3
+d2183db7861bfa63fbdd775ea0fca1cdca985736 t2
+f0b84f8b2fcf70056e47bd51b6c91f0e2fec0b12 t1
+b25e2d6f02cf96c1da37350bbce9ea4a9ce9d9cc 合并多个提交为一个
+e6dadacdca9884d165c89d7205651450ab77c430 test
+0fd77443f2c05c5b2a68a8a4d44082343dbe4fe9 添加source
+```
+
+运行，`git rebase -i b25e2d6f02cf96c1da37350bbce9ea4a9ce9d9cc`，会打开vim，内容修修改为如下，保存退出之后会打开合并之后的提交的日志
+```
+pick f0b84f8 t1
+s d2183db t2
+s 00a7aaf t3
+```
+
+编辑之后退出，会发现选中的三次提交合并为一个了
