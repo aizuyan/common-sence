@@ -17,7 +17,11 @@
 * `git diff HEAD^^ --stat`查看变动的文件列表
 
 #### git revert
+`git revert {commitId}`只会revert`commitId`对应的单次提交。
+
 * `git revert HEAD`，重新建立一个提交，内容是取消上一次提交
+* `git revert 3e2a6a09..HEAD`，取消从`3e2a6a09`到HEAD的每一次提交，有几次提交新建几次回滚提交记录，相当于上个文件的集合
+* `git revert` 的时候提示`error: commit is a merge but no -m option was given`，此时需要制定`-m 1`参数 TODO 搞明白
 
 #### git rm
 * `git rm /path/to/file --cahed`，从版本库中删除一个文件，本地并不删除
