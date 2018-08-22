@@ -104,3 +104,24 @@ var_dump(Son::create());
 */
 
 ```
+
+下面的代码，如果`static`改为`self`会报错
+```php
+<?php
+class A
+{
+    public static function show() {
+        var_dump(static::$name);
+        var_dump(static::NNNN);
+    }
+}
+
+class B extends A
+{
+    const NNNN = "YRT";
+    protected static $name = "燕睿涛";
+}
+
+
+B::show();
+```
