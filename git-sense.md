@@ -24,7 +24,7 @@
 
 * `git revert HEAD`，重新建立一个提交，内容是取消上一次提交
 * `git revert 3e2a6a09..HEAD`，取消从`3e2a6a09`到HEAD的每一次提交，有几次提交新建几次回滚提交记录，相当于上个文件的集合
-* `git revert` 的时候提示`error: commit is a merge but no -m option was given`，此时需要制定`-m 1`参数，因为这个提交是一个合并的版本，git没法知道回退`-m 1`，表示回退合并分支的还是被合并分支的，1表示合并分支的，2表示被合并分支的。
+* `git revert` 的时候提示`error: commit is a merge but no -m option was given`，此时需要制定`-m 1`参数，因为这个提交是一个合并的版本，git没法知道回退合并分支的还是被合并分支的，因此要加上`-m`参数，1表示合并分支的，2表示被合并分支的。
 
 #### git cherry-pick
 * `git cherry-pick {commitId}` 合并某个分支的commitId这次提交到当前分支，并生成一次提交
