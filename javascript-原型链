@@ -1,3 +1,5 @@
+## javascript 中的原型链理解
+
 ```js
 function Drinks() {
     this.capacity = {
