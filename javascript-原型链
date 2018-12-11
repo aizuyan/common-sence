@@ -1,0 +1,53 @@
+```js
+function Drinks() {
+    this.capacity = {
+        "first": "500ml",
+        "second": "300ml",
+        "third": "250ml"
+    }
+}
+
+Drinks.prototype.drink = function() {
+    console.log("dun dun dun dun......");
+}
+
+
+function CocaCola() {
+    Drinks.call(this)
+    this.color = "black";
+}
+
+CocaCola.prototype = new Drinks();
+
+CocaCola.prototype.showColor = function() {
+    console.log(this.color)
+}
+
+
+function ZeroCocaCola() {
+    CocaCola.call(this)
+    this.sugar = "0"
+}
+
+ZeroCocaCola.prototype = new CocaCola()
+
+ZeroCocaCola.prototype.showSugar = function() {
+    console.log(this.sugar)
+}
+
+let d = new ZeroCocaCola();
+d.__proto__ === ZeroCocaCola.prototype
+d.__proto__.__proto__ === CocaCola.prototype
+d.__proto__.__proto__.__proto__ === Drinks.prototype
+d.__proto__.__proto__.__proto__.__proto__ === Object.prototype
+```
+
+js中的实例，寻找属性的时候，现在自身中寻找，比如，`d`是`ZeroCocaCola {capacity: {…}, color: "black", sugar: "0"}`，当调用`d.drink()`
+的时候，经历了下面的回溯：
+
+1. 查找实例对象`d`中是否有`drink()`方法，发现没有，进入第2步骤。
+2. 去实例对象`d`得`__proto__`属性中查找，也就是去实例对象`d`的构造函数`ZeroCocaCola`的`prototype`属性`Drinks {capacity: {…}, color: "black", showSugar: ƒ}`中查找，发现还是没有，进入第3步骤。
+3. 去`d.__proto__`的`__proto__`属性中查找，也就是`Drinks {capacity: {…}, showColor: ƒ}`，发现还是没有进入第4步骤。
+4. 去`d.__proto__.__proto__`的`__proto__`属性中查找，也就是`{drink: ƒ, constructor: ƒ}`，发现有`drink()`方法，结束回溯。如果还没找到，进入第5步骤。
+5. 去`d.__proto__.__proto__.__proto__`的`__proto__`属性中查找，也就是`Object.prototype`中查找，如果还没找到，进入第6步骤。
+6. 去`d.__proto__.__proto__.__proto__.__proto__`的`__proto__`属性中查找，发现是null，停止回溯，不存在该函数。
