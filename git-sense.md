@@ -61,3 +61,11 @@ s 00a7aaf t3
 ```
 
 编辑之后退出，会发现选中的三次提交合并为一个了
+
+#### `git bisect`二分法查找问题
+用来查找那次提交出现了错误
+
+`git bisect start [commitIdA] [commitIdB]`开始在`commitIdA`和`commitIdB`之间查找错误
+`git bisect good`二分之后前半段没问题，继续在后半段中查找
+`git bisect good`二分之后前半段有问题，在前半段的基础上继续用二分法查找
+`git bisect reset`恢复版本库至原始状态
