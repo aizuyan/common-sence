@@ -27,6 +27,7 @@
 * `git diff {fileName}`工作区和暂存区单个文件的比较，其中fileName也可以用模糊匹配，比如`git diff *.yml`
 * `git diff {commitId} {fileName}`工作区和{commitId}版本比较
 * `git diff {commitId} {commidIdOther} {fileName}`比较两个提交的变动，从commitId到commitIdOther有哪些变动
+* `git diff --word-diff`，按照单词进行比对
 
 #### git revert
 `git revert {commitId}`只会revert`commitId`对应的单次提交。
