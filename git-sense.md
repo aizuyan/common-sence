@@ -17,6 +17,16 @@
 4. git add {冲突文件}
 5. git rebase --continue
 
+#### git stash
+将本地的变更暂存起来，不影响本地其他操作
+* `git stash [save {message}] [-u]`，将本地的修改放入暂存区中，`save {message}`可选，对应的暂存提示信息，`-u`可选，表示将 git 未追踪的文件(untracked files)也放入暂存区。
+* `git stash list`，列出暂存区中所有的暂存信息。
+* `git stash show [stash@{0}] [-p]`，`-p`是显示某次提交的暂存区中的详细区别，`stash@{0}`是指定查看哪次暂存区，默认显示第一个暂存区。
+* `git stash apply [stash@{0}]`，将某个暂存区中的内容恢复，`stash@{0}`是可以指定哪次暂存区，默认第一个暂存区。
+* `git stash pop [stash@{0}]`，将某个暂存区的内容恢复，并将暂存区记录删除，`stash@{0}`同上。
+* `git stash drop [stash@{0}]`，删除某个暂存区记录，`stash@{0}`同上。
+* `git stash clear`，清空暂存区。
+
 
 #### git diff
 * git中的状态分为3个状态：工作区、暂存区、提交版本
